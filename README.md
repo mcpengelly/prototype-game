@@ -10,6 +10,8 @@ matt, malaz
 - The basics of using git with GitHub: https://try.github.io/levels/1/challenges/1
 - Unity Scripting API reference: http://docs.unity3d.com/ScriptReference/
 - Some Unity 5 tutorials: https://unity3d.com/learn/tutorials/modules/beginner/5-tutorials
+- Unity 2D tutorial vids: https://unity3d.com/learn/tutorials/topics/2d-game-creation
+the ones worth doing are the first 2 'chapters' and 2D character conrollers, 2d phyiscs fun with effectors
 
 ### Conventions
 ---------------
@@ -19,11 +21,11 @@ matt, malaz
 
 ### Code examples in markdow
 ----------------------------
->//some javascript code
->//var date = Date();
+> //some javascript code
+> var date = Date();
 >
->2nd block
->//console.log(date);
+> // 2nd block
+> console.log(date);
 >
->more blocks
+> //more blocks
 
