@@ -8,10 +8,12 @@ matt, malaz
 ### Some useful links
 ------------
 - The basics of using git with GitHub: https://try.github.io/levels/1/challenges/1
+- Stuff on git branches: https://www.kernel.org/pub/software/scm/git/docs/gittutorial.html
+- If you want to undo Git Add before commiting: http://stackoverflow.com/questions/348170/undo-git-add-before-commit
 - Unity Scripting API reference: http://docs.unity3d.com/ScriptReference/
 - Some Unity 5 tutorials: https://unity3d.com/learn/tutorials/modules/beginner/5-tutorials
 - Unity 2D tutorial vids: https://unity3d.com/learn/tutorials/topics/2d-game-creation
-the ones worth doing are the first 2 'chapters' and 2D character conrollers, 2d phyiscs fun with effectors
+the ones worth doing are the first 2 'chapters' and 2D character controllers, 2d phyiscs fun with effectors
 
 ### Conventions
 ---------------
