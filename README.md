@@ -18,6 +18,9 @@ matt, malaz
 - Unity 2D tutorial vids: https://unity3d.com/learn/tutorials/topics/2d-game-creation
 the ones worth doing are the first 2 'chapters' and 2D character controllers, 2d physics fun with effectors
 
+#### Things that might come up
+Stuff about DS_files on mac: http://www.wikihow.com/Remove-.Ds_Store-Files-on-Mac-Os-X
+
 ### Conventions
 ---------------
 - If you are going to make changes to the file structure do it from within Unity and not from Finder/Terminal. Unity creates metadata when files get added or deleted, so if you want to add files drag and drop them into unity.
