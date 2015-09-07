@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Computer : MonoBehaviour {
+public class PongAI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
