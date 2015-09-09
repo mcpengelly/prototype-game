@@ -19,7 +19,7 @@ matt, malaz
 the ones worth doing are the first 2 'chapters' and 2D character controllers, 2d physics fun with effectors
 
 #### Things that might come up
-Stuff about DS_files on mac: http://www.wikihow.com/Remove-.Ds_Store-Files-on-Mac-Os-X
+Stuff about DS_files on mac : http://www.wikihow.com/Remove-.Ds_Store-Files-on-Mac-Os-X
 
 ### Conventions
 ---------------
@@ -32,6 +32,8 @@ Stuff about DS_files on mac: http://www.wikihow.com/Remove-.Ds_Store-Files-on-Ma
 - force push
 - obstacles
 - multi paddle
+- bosses
+- brick breaker
 
 ### Code examples in markdown
 ----------------------------

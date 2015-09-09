@@ -3,27 +3,43 @@ using System.Collections;
 
 public class PaddleController : MonoBehaviour {
 
-	public float paddleSpeed = 1;
-	public Vector3 currentPosition;
-	private Vector2 startPosition;
-	private Vector2 playerPos = new Vector2(0, 0);
+	public Rigidbody2D rb2D;
+	public float paddleSpeed = 1.0f;
+	public float maxHeight;
+	public float minHeight;
+	private Vector2 startPos;
 
 	void Awake () {
-		startPosition = transform.position;
+		//get handle on rigidbody2d of this object so it can be moved in update
+		rb2D = GetComponent<Rigidbody2D>();
 	}
-	void Update () {
-		currentPosition = transform.position;
-		float yPos = transform.position.y + (Input.GetAxis("Vertical") * paddleSpeed);
+	void Start () {
+		//setup start position
+		startPos = new Vector2(transform.position.x, transform.position.y);
 
-		if(Input.GetKeyDown(KeyCode.W)) {
-			yPos = transform.position.y + paddleSpeed;
-		}
-		if (Input.GetKeyDown(KeyCode.S)) {
-			yPos = transform.position.y - paddleSpeed;
-		}
-		playerPos = new Vector2(transform.position.x, yPos);
-		transform.position = playerPos;
 	}
+	//FixedUpdate runs every game tick, but is used for physics objects.
+	void FixedUpdate () {
+		Vector2 rawPosition = transform.position;
+		Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y);
+
+		//if player hits W and the y position is under 2.5f then set target position higher
+		if(Input.GetKey(KeyCode.W)&& transform.position.y <= startPos.y + maxHeight) {
+			targetPosition = new Vector2(rawPosition.x, rawPosition.y + paddleSpeed);
+
+		} else if (Input.GetKey(KeyCode.S) && transform.position.y >= startPos.y + minHeight) {
+			targetPosition = new Vector2(rawPosition.x, rawPosition.y - paddleSpeed);
+
+		}
+		else {
+			Debug.Log ("use W/S keys to control the paddle");
+		}
+
+		//moves the paddle
+		rb2D.MovePosition(targetPosition);
+	}
+
+
 
 //	// Update is called once per frame
 //	void Update () 
