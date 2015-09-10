@@ -7,6 +7,6 @@ public class PointTrigger : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider) {
 		Debug.Log (collider);
-		GameObject.Destroy(collider, 0.1f);
+		GameObject.Destroy(collider.gameObject);
 	}
 }

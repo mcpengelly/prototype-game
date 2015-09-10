@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PaddleController : MonoBehaviour {
 
+	//player controlled paddle
+
 	public Rigidbody2D rb2D;
 	public float paddleSpeed = 1.0f;
 	public float maxHeight;
@@ -14,11 +16,10 @@ public class PaddleController : MonoBehaviour {
 		rb2D = GetComponent<Rigidbody2D>();
 	}
 	void Start () {
-		//setup start position
 		startPos = new Vector2(transform.position.x, transform.position.y);
 
 	}
-	//FixedUpdate runs every game tick, but is used for physics objects.
+	//FixedUpdate runs every game tick, but is used for physics objects. 
 	void FixedUpdate () {
 		Vector2 rawPosition = transform.position;
 		Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y);
@@ -31,17 +32,14 @@ public class PaddleController : MonoBehaviour {
 			targetPosition = new Vector2(rawPosition.x, rawPosition.y - paddleSpeed);
 
 		}
-		else {
-			Debug.Log ("use W/S keys to control the paddle");
-		}
 
-		//moves the paddle
+		//move the paddle
 		rb2D.MovePosition(targetPosition);
 	}
 
 
 
-//	// Update is called once per frame
+	// Update is called once per frame
 //	void Update () 
 //	{
 //		float xPos = transform.position.y + (Input.GetAxis("Horizontal") * paddleSpeed);
