@@ -24,8 +24,8 @@ public class PaddleController : MonoBehaviour {
 		Vector2 rawPosition = transform.position;
 		Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y);
 
-		//if player hits W and the y position is under 2.5f then set target position higher
-		if(Input.GetKey(KeyCode.W)&& transform.position.y <= startPos.y + maxHeight) {
+		//setup maxHeight range from inspector
+		if(Input.GetKey(KeyCode.W) && transform.position.y <= startPos.y + maxHeight) {
 			targetPosition = new Vector2(rawPosition.x, rawPosition.y + paddleSpeed);
 
 		} else if (Input.GetKey(KeyCode.S) && transform.position.y >= startPos.y + minHeight) {

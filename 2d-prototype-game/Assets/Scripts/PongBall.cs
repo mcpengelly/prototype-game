@@ -15,27 +15,14 @@ public class PongBall : MonoBehaviour {
 			rb.AddForce(new Vector2(-ballInitialVelocity, -ballInitialVelocity));
 		}
 	}
+	// trying to make a method that changes the velocity of the ball depending 
+	//which angle it collides with paddles... seems ball slows down otherwise?
+	void onCollisionEnter2D(Collision2D deflect) {
+		if (deflect.collider.CompareTag ("Player") || deflect.collider.CompareTag ("CPU")) {
+			var speedY = rb.velocity;
+			speedY.y = speedY.y/2.0f;
+			rb.velocity = speedY;
+		}
+	}
 }
-	// trying to make a method that changes the velocity of the ball depending which angle it collides with paddles... seems ball slows down otherwise?
-	//void onCollisionEnter2D(Collision2D deflect) {
-	//	if (deflect.collider.CompareTag ("Player") || deflect.collider.CompareTag ("CPU")) {
-	//		var speedY = Rigidbody2D.velocity;
-	//		speedY.y = (speedY.y/2.0f));
-	//		Rigidbody2D.velocity = speedY;
-	//	}
-	//}
-
-// Your previous code segment
-//  public float ballInitialVelocity = 600;
-//private Rigidbody2D rb;
-// Use this for initialization
-//void Awake () {
-//  rb = GetComponent<Rigidbody2D> ();
-// rb.AddForce(new Vector3(ballInitialVelocity, ballInitialVelocity, 0));
-//}
-
-// Update is called once per frame
-//void Update () {
-
-//}
 
