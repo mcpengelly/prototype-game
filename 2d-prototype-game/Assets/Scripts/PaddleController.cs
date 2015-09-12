@@ -10,6 +10,7 @@ public class PaddleController : MonoBehaviour {
 	public float maxHeight;
 	public float minHeight;
 	private Vector2 startPos;
+	public Transform ballPos;
 
 	void Awake () {
 		//get handle on rigidbody2d of this object so it can be moved in update
@@ -36,6 +37,18 @@ public class PaddleController : MonoBehaviour {
 		//move the paddle
 		rb2D.MovePosition(targetPosition);
 	}
+
+	//malaz: method attempts to change velocity of the ball when it collides with paddle (depending on location of collision)
+	// same method in PongAI
+	//void onCollisionEnter(Collision coll) {
+	//	ballPos = GameObject.FindGameObjectWithTag ("ball").transform;
+	//	Vector2 v = coll.rigidbody.velocity;
+	//	float velo = v.magnitude;
+	//	v.y = (coll.transform.position.y - ballPos.transform.position.y) * 8;
+	//	if (v.magnitude < velo) {
+	//		coll.rigidbody.velocity *= velo/coll.rigidbody.velocity.magnitude;
+	//	}
+	//}
 
 
 
