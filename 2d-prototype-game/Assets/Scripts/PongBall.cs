@@ -19,7 +19,7 @@ public class PongBall : MonoBehaviour {
 	//which angle it collides with paddles... seems ball slows down otherwise?
 	void onCollisionEnter2D(Collision2D deflect) {
 		if (deflect.collider.CompareTag ("Player") || deflect.collider.CompareTag ("CPU")) {
-			var speedY = rb.velocity;
+			Vector2 speedY = rb.velocity;
 			speedY.y = speedY.y/2.0f;
 			rb.velocity = speedY;
 		}
