@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class PointTrigger : MonoBehaviour {
 
 	//send a message to game manager to increment score?
+
+
+	void Start() {
+
+	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
 		Debug.Log (collider);

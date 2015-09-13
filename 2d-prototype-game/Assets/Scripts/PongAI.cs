@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class PongAI : MonoBehaviour {
 
 	public Transform ballPos; 
 	public float speed = 1.0f;
+
+
 
 	// AI doesn't move until ball is past x=5, more "human" effect. Fixed clamping. Ball still goes out of bounds sometimes.
 	void Update (){
@@ -22,6 +25,9 @@ public class PongAI : MonoBehaviour {
 			}
 		}
 	}
+
+
+
 
 	// method to change the velocity of the ball when it collides, depending on location of collision on paddle. 
 	// detect that collision occured
@@ -43,14 +49,6 @@ public class PongAI : MonoBehaviour {
 			coll.rigidbody.velocity *= velo/coll.rigidbody.velocity.magnitude;
 		}
 	}
-
-
+	
 }
 
-//Vector2 temp = new Vector2 (0, transform.position.y);
-//if (ballPos.position.y > transform.position.y) {
-//	temp += speed;
-//} else {
-//	temp -= speed;
-//}
-//}
