@@ -3,18 +3,19 @@ using System.Collections;
 
 
 public class PongAI : MonoBehaviour {
-
 	public Transform ballPos; 
 	public float speed = 1.0f;
 
-
+	//create a circle collider around the cpu paddle that detects if the ball is within "range"
+	//make the paddle behave a particular way when it is in range or out of range.
 
 	// AI doesn't move until ball is past x=5, more "human" effect. Fixed clamping. Ball still goes out of bounds sometimes.
 	void Update (){
-			ballPos = GameObject.FindGameObjectWithTag ("ball").transform;
+		ballPos = GameObject.FindGameObjectWithTag ("ball").transform;
+	}
 
+	void FixedUpdate () {
 		if (ballPos.position.x > 5) {
-
 			transform.position = new Vector2 (transform.position.x, Mathf.Lerp(transform.position.y, ballPos.position.y, speed*Time.deltaTime));
 			Vector2 temp = new Vector2 (transform.position.x, -3.5f);
 			Vector2 temp2 = new Vector2 (transform.position.x, 18.5f);
@@ -25,10 +26,6 @@ public class PongAI : MonoBehaviour {
 			}
 		}
 	}
-
-
-
-
 	// method to change the velocity of the ball when it collides, depending on location of collision on paddle. 
 	// detect that collision occured
 	void onCollisionEnter(Collision coll) {
@@ -48,7 +45,5 @@ public class PongAI : MonoBehaviour {
 		if (v.magnitude < velo) {
 			coll.rigidbody.velocity *= velo/coll.rigidbody.velocity.magnitude;
 		}
-	}
-	
+	}	
 }
-

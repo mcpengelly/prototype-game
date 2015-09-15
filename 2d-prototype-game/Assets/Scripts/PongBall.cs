@@ -11,8 +11,6 @@ public class PongBall : MonoBehaviour {
 	private int playerScore = 0;
 	private int cpuScore = 0;
 
-
-
 	// Starts ball moving. edited so that the ball starts off with an initial velocity but to a random direction - towards player vs towards cpu
 	void Start() {
 		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
@@ -35,7 +33,6 @@ public class PongBall : MonoBehaviour {
 			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
 		}
 	}
-
 }
 	// trying to make a method that changes the velocity of the ball depending 
 	//which angle it collides with paddles... seems ball slows down otherwise?
