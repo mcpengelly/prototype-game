@@ -10,9 +10,11 @@ public class PongBall : MonoBehaviour {
 	public Text countCPUScore;
 	private int playerScore = 0;
 	private int cpuScore = 0;
+	private Vector2 ballOriginalPos;
 
 	// Starts ball moving. edited so that the ball starts off with an initial velocity but to a random direction - towards player vs towards cpu
 	void Start() {
+		ballOriginalPos = transform.position;
 		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
 		countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
 		rb = GetComponent<Rigidbody2D> ();
@@ -24,15 +26,41 @@ public class PongBall : MonoBehaviour {
 		}
 	}
 
+	//called from game manager, checks who has won.. called in onGUI supposed to print out "YOU WON"
+	void hasWon() {
+		Vector2 v = GetComponent<Rigidbody2D> ().velocity;
+		v.y = 0;
+		v.x = 0;
+		GetComponent<Rigidbody2D> ().velocity = v;
+
+		gameObject.transform.position = new Vector2 (0, 0);
+	}
+
+	//called from game manager, resets ball pos after scoring
+	void resetBall() {	
+		Vector2 v = GetComponent<Rigidbody2D> ().velocity;
+		v.y = 0;
+		v.x = 0;
+		GetComponent<Rigidbody2D> ().velocity = v;
+		
+		gameObject.transform.position = ballOriginalPos;
+		Start ();
+	}
+
 	void OnTriggerEnter2D(Collider2D collider) {
+
 		if (collider.gameObject.CompareTag ("CPU net")) {
 			playerScore += 1;
 			countPlayerScore.text = "Your Score: " + playerScore.ToString ();
+
 		} else if (collider.gameObject.CompareTag ("Player net")) {
 			cpuScore += 1;
 			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
 		}
+
 	}
+
+
 }
 	// trying to make a method that changes the velocity of the ball depending 
 	//which angle it collides with paddles... seems ball slows down otherwise?
