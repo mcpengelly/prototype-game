@@ -20,8 +20,8 @@ public class PaddleController : MonoBehaviour {
 		startPos = new Vector2(transform.position.x, transform.position.y);
 
 	}
-	//FixedUpdate runs every game tick, but is used for physics objects. 
-	void FixedUpdate () {
+
+	void Update () {
 		Vector2 rawPosition = transform.position;
 		Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y);
 
