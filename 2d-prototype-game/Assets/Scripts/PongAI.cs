@@ -51,15 +51,17 @@ public class PongAI : MonoBehaviour {
 
 			if (getState() == State.Wandering) {
 				//move up cuz why not
-				targetPos = new Vector2(transform.position.x, transform.position.y + 0.1f);
-
+				targetPos = new Vector2(transform.position.x, transform.position.y + -0.1f);
+				if (pongBall.transform.position.x < 4) {
+					targetPos = new Vector2(transform.position.x, transform.position.y + 0.1f);
+				}
 			} else if (getState() == State.Blocking) {
 				//move towards ball
 				targetPos = new Vector2(transform.position.x, pongBallYPos);
 			}
 		}
 
-		transform.position = targetPos;
+		transform.position = Vector2.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
 	}
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag("ball")) {
