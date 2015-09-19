@@ -8,7 +8,9 @@ public class PongAI : MonoBehaviour {
 	//create a circle collider around the cpu paddle that detects if the ball is within "range"
 	//make the paddle behave a particular way when it is in range or out of range.
 	//allow for this class to be extensible, in this case. able to incorperate more states. ie: boosting or something.
-	
+	private float minY = 1.4f; // Bottom of the screen 
+	private float maxY = 1.86f;
+
 	public enum State
 	{
 		Init,
@@ -62,6 +64,11 @@ public class PongAI : MonoBehaviour {
 		}
 
 		transform.position = Vector2.MoveTowards (transform.position, targetPos, speed * Time.deltaTime);
+		if (transform.position.y < minY) {
+			targetPos = new Vector2(transform.position.x, minY);
+		} else if (transform.position.y > maxY) {
+			targetPos = new Vector2(transform.position.x, maxY);
+		}
 	}
 	void OnTriggerEnter2D (Collider2D other) {
 		if(other.CompareTag("ball")) {
