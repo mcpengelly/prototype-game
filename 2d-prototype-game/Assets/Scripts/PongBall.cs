@@ -14,6 +14,8 @@ public class PongBall : MonoBehaviour {
 
 	// Starts ball moving. edited so that the ball starts off with an initial velocity but to a random direction - towards player vs towards cpu
 	void Start() {
+		// start coroutine to wait 2 seconds before ball spawns
+		StartCoroutine (bufferWait ());
 		ballOriginalPos = transform.position;
 		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
 		countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
@@ -24,6 +26,13 @@ public class PongBall : MonoBehaviour {
 		} else {
 			rb.AddForce(new Vector2(-ballInitialVelocity, -ballInitialVelocity));
 		}
+	}
+
+	// coroutine started from Start
+	IEnumerator bufferWait() {
+		Debug.Log("Before Waiting 2 seconds");
+		yield return new WaitForSeconds(2);
+		Debug.Log("After Waiting 2 Seconds");
 	}
 
 	//called from game manager, checks who has won.. called in onGUI supposed to print out "YOU WON"
@@ -42,7 +51,6 @@ public class PongBall : MonoBehaviour {
 		v.y = 0;
 		v.x = 0;
 		GetComponent<Rigidbody2D> ().velocity = v;
-		
 		gameObject.transform.position = ballOriginalPos;
 		Start ();
 	}
@@ -57,6 +65,7 @@ public class PongBall : MonoBehaviour {
 			cpuScore += 1;
 			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
 		}
+
 
 	}
 

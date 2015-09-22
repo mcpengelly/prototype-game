@@ -10,6 +10,7 @@ public class MatchManager : MonoBehaviour {
 	//affect timescale
 	//interface with all other objects to pause their state
 	//register puased/menu/playing messages
+	//wait few seconds before spawning new balls after round is over.
 
 	public bool isPaused;
 	public static int playerScore = 0;
@@ -35,6 +36,7 @@ public class MatchManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R)) {
 			Application.LoadLevel(0);
 		}
+
 	}
 
 	public void TogglePause () {
@@ -62,6 +64,7 @@ public class MatchManager : MonoBehaviour {
 			cpuScore++;;
 		}
 	}
+	
 }
 // this method i'm trying to create a different type of gui.. for reset 
 	//void onGUI() {
