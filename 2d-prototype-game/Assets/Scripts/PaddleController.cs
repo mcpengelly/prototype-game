@@ -11,6 +11,7 @@ public class PaddleController : MonoBehaviour {
 	public float minHeight;
 	private Vector2 startPos;
 	public Transform ballPos;
+	Vector2 rawPosition;
 
 	void Awake () {
 		//get handle on rigidbody2d of this object so it can be moved in update
@@ -22,21 +23,51 @@ public class PaddleController : MonoBehaviour {
 	}
 
 	void Update () {
-		Vector2 rawPosition = transform.position;
-		Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y);
+		rawPosition = transform.position;
+		Vector2 targetPosition = new Vector2 (transform.position.x, transform.position.y);
 
 		//setup maxHeight range from inspector
-		if(Input.GetKey(KeyCode.W) && transform.position.y <= startPos.y + maxHeight) {
-			targetPosition = new Vector2(rawPosition.x, rawPosition.y + paddleSpeed);
+		if (Input.GetKey (KeyCode.W) && transform.position.y <= startPos.y + maxHeight) {
+			targetPosition = new Vector2 (rawPosition.x, rawPosition.y + paddleSpeed);
 
-		} else if (Input.GetKey(KeyCode.S) && transform.position.y >= startPos.y + minHeight) {
-			targetPosition = new Vector2(rawPosition.x, rawPosition.y - paddleSpeed);
+		} else if (Input.GetKey (KeyCode.S) && transform.position.y >= startPos.y + minHeight) {
+			targetPosition = new Vector2 (rawPosition.x, rawPosition.y - paddleSpeed);
 
 		}
 
 		//move the paddle
-		rb2D.MovePosition(targetPosition);
+		rb2D.MovePosition (targetPosition);
+		speedBoost (targetPosition);
+
+		
 	}
+
+	// just messing around.. trying to add a small speed boost 
+	//-- used same strategy as above but using same button for both directions.. didn't work
+	void  speedBoost(Vector2 targetPosition) {
+		if (Input.GetKey (KeyCode.Space) && transform.position.y <= startPos.y + maxHeight) {
+			rb2D.AddRelativeForce (rawPosition, ForceMode2D.Impulse);
+			targetPosition = new Vector2 (transform.position.x, transform.position.y + paddleSpeed * 2);
+		} 
+		else if (Input.GetKey (KeyCode.Space) && transform.position.y >= startPos.y + minHeight) {
+			rb2D.AddRelativeForce (rawPosition, ForceMode2D.Impulse);
+			targetPosition = new Vector2 (transform.position.x, transform.position.y - paddleSpeed * 2);
+		}
+			rb2D.MovePosition (targetPosition);
+	}
+}
+		
+
+		//	if (rawPosition.y < 7.5) {
+		//		transform.position = rb2D.AddRelativeForce(rawPosition, ForceMode2D.Impulse);
+		//		targetPosition = new Vector2(transform.position.
+
+		//	}
+		//	if (rawPosition.y >7.5) {
+		//		transform.position = rb2D.AddRelativeForce(rawPosition, -ForceMode2D.Impulse);
+			
+		//	}
+	
 
 	//malaz: method attempts to change velocity of the ball when it collides with paddle (depending on location of collision)
 	// same method in PongAI
@@ -72,4 +103,3 @@ public class PaddleController : MonoBehaviour {
 //		//playerPos = new Vector3 (Mathf.Clamp (xPos, -8f, 8f), -9.5f, 0f);
 //		transform.position = playerPos;
 //	}
-}

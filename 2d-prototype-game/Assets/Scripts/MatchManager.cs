@@ -37,6 +37,9 @@ public class MatchManager : MonoBehaviour {
 			Application.LoadLevel(0);
 		}
 
+		if (Input.GetKey("escape"))
+			Application.Quit();
+
 	}
 
 	public void TogglePause () {

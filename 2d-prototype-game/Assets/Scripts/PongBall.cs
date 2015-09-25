@@ -11,10 +11,13 @@ public class PongBall : MonoBehaviour {
 	private int playerScore = 0;
 	private int cpuScore = 0;
 	private Vector2 ballOriginalPos;
+	public Text playerWin;
+
 
 	// Starts ball moving. edited so that the ball starts off with an initial velocity but to a random direction - towards player vs towards cpu
 	void Start() {
 		// start coroutine to wait 2 seconds before ball spawns
+		playerWin.text = "";
 		StartCoroutine (bufferWait ());
 		ballOriginalPos = transform.position;
 		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
@@ -60,14 +63,23 @@ public class PongBall : MonoBehaviour {
 		if (collider.gameObject.CompareTag ("CPU net")) {
 			playerScore += 1;
 			countPlayerScore.text = "Your Score: " + playerScore.ToString ();
+			if (playerScore == 10) {
+				playerWin.text = "You Win!!";
+				// Application.Quit()
+			}
 
 		} else if (collider.gameObject.CompareTag ("Player net")) {
 			cpuScore += 1;
 			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
+			if (cpuScore == 10) {
+				playerWin.text = "You Lose!!";
+				// Application.Quit() <<< to stop game?
+
+			}
 		}
 
-
 	}
+	
 
 
 }
