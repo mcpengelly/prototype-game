@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+//TODO: refactor this class into another ScoreManager Behaviour script
 public class PongBall : MonoBehaviour {
 
 	private Rigidbody2D rb;
@@ -11,30 +13,37 @@ public class PongBall : MonoBehaviour {
 	private int playerScore = 0;
 	private int cpuScore = 0;
 	private Vector2 ballOriginalPos;
-	public Text playerWin;
+	public Text playerWin = "";
 
-
-	// Starts ball moving. edited so that the ball starts off with an initial velocity but to a random direction - towards player vs towards cpu
-	void Start() {
-		// start coroutine to wait 2 seconds before ball spawns
+	void Awake () {
+		init ();
+	}
+	private void init() {
 		playerWin.text = "";
-		StartCoroutine (bufferWait ());
-		ballOriginalPos = transform.position;
-		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
-		countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
+		//StartCoroutine (bufferWait ());
+		ballOriginalPos = transform.position; // establish start position
+	}
+	void Start () {
+		sendRandomDirection ();
+	}
+	private void sendRandomDirection () {
 		rb = GetComponent<Rigidbody2D> ();
-		float random = Random.Range (0.0f, 100.0f);
-		if (random < 50.0f) {
+		float random = Mathf.Floor(Random.Range (0, 2));
+		if (random < 1) {
 			rb.AddForce (new Vector2 (ballInitialVelocity, ballInitialVelocity));
 		} else {
 			rb.AddForce(new Vector2(-ballInitialVelocity, -ballInitialVelocity));
 		}
 	}
+	private void updateUI () {
+		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
+		countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
+	}
 
 	// coroutine started from Start
 	IEnumerator bufferWait() {
 		Debug.Log("Before Waiting 2 seconds");
-		yield return new WaitForSeconds(2);
+		yield return 0; //new WaitForSeconds(2);
 		Debug.Log("After Waiting 2 Seconds");
 	}
 
@@ -55,11 +64,9 @@ public class PongBall : MonoBehaviour {
 		v.x = 0;
 		GetComponent<Rigidbody2D> ().velocity = v;
 		gameObject.transform.position = ballOriginalPos;
-		Start ();
+		//Start (); // refactor to use custom init function isntead
 	}
-
-	void OnTriggerEnter2D(Collider2D collider) {
-
+	void checkWhoScored(Collider2D collider) {
 		if (collider.gameObject.CompareTag ("CPU net")) {
 			playerScore += 1;
 			countPlayerScore.text = "Your Score: " + playerScore.ToString ();
@@ -67,21 +74,28 @@ public class PongBall : MonoBehaviour {
 				playerWin.text = "You Win!!";
 				// Application.Quit()
 			}
-
+			
 		} else if (collider.gameObject.CompareTag ("Player net")) {
 			cpuScore += 1;
 			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
 			if (cpuScore == 10) {
 				playerWin.text = "You Lose!!";
 				// Application.Quit() <<< to stop game?
-
 			}
 		}
-
+		updateUI ();
+		displayWinner ();
 	}
-	
-
-
+	private void displayWinner () {
+		if (cpuScore >= 10) {
+			playerWin.text = "You Lose!";
+		} else if (playerScore >= 10 ) {
+			playerWin.text = "You Win!";
+		}
+	}
+	void OnTriggerEnter2D(Collider2D collider) {
+		checkWhoScored (collider);
+	}
 }
 	// trying to make a method that changes the velocity of the ball depending 
 	//which angle it collides with paddles... seems ball slows down otherwise?
