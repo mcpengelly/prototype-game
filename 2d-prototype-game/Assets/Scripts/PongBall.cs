@@ -27,8 +27,9 @@ public class PongBall : MonoBehaviour {
 
 	//called from game manager, resets ball pos after scoring
 	void resetBall() {
-		stopBall ();
-		gameObject.transform.position = startPos;
+		resetVelocity ();
+		transform.position = startPos;
+		sendRandomDirection();
 	}
 	IEnumerator bufferWait() {
 		Debug.Log("Before Waiting 2 seconds");
@@ -65,20 +66,20 @@ public class PongBall : MonoBehaviour {
 	}
 	private void init() {
 		rb = this.GetComponent<Rigidbody2D> ();
-		playerWin.text = "";
-		//StartCoroutine (bufferWait ());
 		startPos = transform.position; // establish start position
+		//StartCoroutine (bufferWait ());
 	}
 	private void sendRandomDirection () {
-		rb = GetComponent<Rigidbody2D> ();
 		float random = Mathf.Floor(Random.Range (0, 2));
 		if (random < 1) {
+			print("randNum:" + random);
 			rb.AddForce (new Vector2 (ballInitialVelocity, ballInitialVelocity));
 		} else {
+			print("randNum:" + random);
 			rb.AddForce(new Vector2(-ballInitialVelocity, -ballInitialVelocity));
 		}
 	}
-	private void stopBall() {
+	private void resetVelocity() {
 		Vector2 v = rb.velocity;
 		v.y = 0;
 		v.x = 0;
