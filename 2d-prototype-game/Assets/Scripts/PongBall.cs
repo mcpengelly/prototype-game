@@ -5,10 +5,13 @@ using UnityEngine.UI;
 //TODO: refactor this class into another ScoreManager Behaviour script
 public class PongBall : MonoBehaviour {
 
-	public Text countPlayerScore;
-	public Text countCPUScore;
-	public Text playerWin;
-	public float ballInitialVelocity = 600;
+	//move to UI/Score manager class
+	public Text playerScoreUI;
+	public Text cpuScoreUI;
+	public Text gameMessageUI;
+	//
+
+	public float initialVelocity = 600;
 
 	private Rigidbody2D rb;
 	private Vector2 startPos;
@@ -27,6 +30,7 @@ public class PongBall : MonoBehaviour {
 
 	//called from game manager, resets ball pos after scoring
 	void resetBall() {
+		print("resetBall, Triggered by pointTrigger");
 		resetVelocity ();
 		transform.position = startPos;
 		sendRandomDirection();
@@ -40,28 +44,20 @@ public class PongBall : MonoBehaviour {
 	private void checkWhoScored(Collider2D collider) {
 		if (collider.gameObject.CompareTag ("CPU net")) {
 			playerScore += 1;
-			countPlayerScore.text = "Your Score: " + playerScore.ToString ();
-			if (playerScore == 10) {
-				playerWin.text = "You Win!!";
-				// Application.Quit()
-			}
+			playerScoreUI.text = "Your Score: " + playerScore.ToString ();
 			
 		} else if (collider.gameObject.CompareTag ("Player net")) {
 			cpuScore += 1;
-			countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
-			if (cpuScore == 10) {
-				playerWin.text = "You Lose!!";
-				// Application.Quit() <<< to stop game?
-			}
+			cpuScoreUI.text = "Enemy Score: " + cpuScore.ToString ();
 		}
 		updateUI ();
 		displayWinner ();
 	}
 	private void displayWinner () {
 		if (cpuScore >= 10) {
-			playerWin.text = "You Lose!";
+			gameMessageUI.text = "You Lose!";
 		} else if (playerScore >= 10 ) {
-			playerWin.text = "You Win!";
+			gameMessageUI.text = "You Win!";
 		}
 	}
 	private void init() {
@@ -72,11 +68,9 @@ public class PongBall : MonoBehaviour {
 	private void sendRandomDirection () {
 		float random = Mathf.Floor(Random.Range (0, 2));
 		if (random < 1) {
-			print("randNum:" + random);
-			rb.AddForce (new Vector2 (ballInitialVelocity, ballInitialVelocity));
+			rb.AddForce (new Vector2 (initialVelocity, initialVelocity));
 		} else {
-			print("randNum:" + random);
-			rb.AddForce(new Vector2(-ballInitialVelocity, -ballInitialVelocity));
+			rb.AddForce(new Vector2(-initialVelocity, -initialVelocity));
 		}
 	}
 	private void resetVelocity() {
@@ -86,7 +80,7 @@ public class PongBall : MonoBehaviour {
 		rb.velocity = v;
 	}
 	private void updateUI () {
-		countPlayerScore.text = "Your Score: " + playerScore.ToString ();
-		countCPUScore.text = "Enemy Score: " + cpuScore.ToString ();
+		playerScoreUI.text = "Your Score: " + playerScore.ToString ();
+		cpuScoreUI.text = "Enemy Score: " + cpuScore.ToString ();
 	}
 }

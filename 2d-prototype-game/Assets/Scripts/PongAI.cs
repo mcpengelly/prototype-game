@@ -8,8 +8,6 @@ public class PongAI : MonoBehaviour {
 	//create a circle collider around the cpu paddle that detects if the ball is within "range"
 	//make the paddle behave a particular way when it is in range or out of range.
 	//allow for this class to be extensible, in this case. able to incorperate more states. ie: boosting or something.
-	private float minY = 0.0f; // Bottom of the screen 
-	private float maxY = 0.0f;
 
 	public enum State
 	{
@@ -33,9 +31,7 @@ public class PongAI : MonoBehaviour {
 	public void SetState(State newState) { 
 		previousState = currentState;
 		currentState = newState;
-		print("Exiting: " + previousState.ToString() + " State"
-		      + " ... " 
-		      + "Entering: " + currentState.ToString() + " State");
+		print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
 	}
 	
 	void Awake() {
@@ -57,15 +53,16 @@ public class PongAI : MonoBehaviour {
 	//paddle currently tries to move to a new random position every update frame
 	//need to make the update trigger a movement that waits till its movement is completed (or until blocking state is trigged)
 	//also need to make sure paddle have limits on its y axis.
+	//could use a coroutine that runs every 2 seconds ? while wandering. picking random spots and moving to them
 	void Update() {
 		pongBall = GameObject.FindGameObjectWithTag("ball");
 
 		if(pongBall != null) {
 			float pongBallYPos = pongBall.transform.position.y;
-			int randIncrement = Random.Range(-3,3);
+			//int randIncrement = Random.Range(-3,3);
 
 			if (getState() == State.Wandering) {
-				targetPos = new Vector2(transform.position.x, transform.position.y + randIncrement);
+				//targetPos = new Vector2(transform.position.x, transform.position.y + randIncrement);
 
 			} else if (getState() == State.Blocking) {
 				//move towards ball

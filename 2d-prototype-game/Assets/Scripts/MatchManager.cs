@@ -16,10 +16,9 @@ public class MatchManager : MonoBehaviour {
 	public static int playerScore = 0;
 	public static int cpuScore = 0;
 	public GUISkin layout;
-	Transform ball;
 
 	void Start() {
-		ball = GameObject.FindGameObjectWithTag ("ball").transform;
+
 	}
 
 	void Awake () {
@@ -58,7 +57,7 @@ public class MatchManager : MonoBehaviour {
 		isPaused = false;
 		Time.timeScale = 1.0f;
 	}
-
+	
 	// called from PointTrigger script on each the net colliders, increments score accordingly
 	public static void Score(string netID) {
 		if (netID == "P_CPUnet") {
