@@ -62,15 +62,11 @@ public class PongAI : MonoBehaviour {
 		}
 		transform.position = target;
 	}
-	//need to refactor this out of update. or at least fire off a Coroutine to do the movement parts
-	//paddle currently tries to move to a new random position every update frame
-	//need to make the update trigger a movement that waits till its movement is completed (or until blocking state is trigged)
-	//also need to make sure paddle have limits on its y axis.
-	//could use a coroutine that runs every 2 seconds ? while wandering. picking random spots and moving to them
+
 	IEnumerator aiUpdate() {
+		//TODO:run repeatedly while game state != gameover
 		while (true) {
 			pongBall = GameObject.FindGameObjectWithTag ("ball");
-
 
 			if(pongBall != null){
 				float pongBallYPos = pongBall.transform.position.y;
@@ -82,10 +78,14 @@ public class PongAI : MonoBehaviour {
 					case State.Wandering:
 					int randomYDist = Random.Range (-5, 5);
 					float tryDistance = currentPosition.y + randomYDist;
-
+					currentPosition = transform.position;
+					//add randomyYDistance to current position to check if it would be passed the boundry.
+					//if it would set the boundry too high or low, flip the sign of randomYDist
 					if(tryDistance < 10 && tryDistance > -10){
-						currentPosition = transform.position;
 						targetPos = new Vector2(currentPosition.x, currentPosition.y + randomYDist);
+						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 0.5f));
+					} else { // TODO: make the paddle wander back if the tryDistance is too high or low.
+						targetPos = new Vector2(currentPosition.x, currentPosition.y + (randomYDist * -1.0f));
 						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 0.5f));
 					}
 					break;
@@ -98,6 +98,9 @@ public class PongAI : MonoBehaviour {
 			}
 			yield return 0;
 		}
+	}
+	private void wanderOneTime () {
+
 	}
 
 }
