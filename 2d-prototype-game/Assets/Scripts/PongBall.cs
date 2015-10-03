@@ -14,7 +14,6 @@ public class PongBall : MonoBehaviour {
 	private int playerScore = 0;
 	private int cpuScore = 0;
 	//
-
 	public float initialVelocity = 600;
 
 	private Rigidbody2D rb;
@@ -41,11 +40,6 @@ public class PongBall : MonoBehaviour {
 		resetVelocity ();
 		transform.position = startPos;
 		sendRandomDirection();
-	}
-	IEnumerator bufferWait() {
-		Debug.Log("Before Waiting 2 seconds");
-		yield return 0; //new WaitForSeconds(2);
-		Debug.Log("After Waiting 2 Seconds");
 	}
 	
 	private void checkWhoScored(Collider2D collider) {
@@ -80,7 +74,6 @@ public class PongBall : MonoBehaviour {
 	private void init() {
 		rb = this.GetComponent<Rigidbody2D> ();
 		startPos = transform.position; // establish start position
-		//StartCoroutine (bufferWait ());
 	}
 	private void sendRandomDirection () {
 		float random = Mathf.Floor(Random.Range (0, 2));
