@@ -9,16 +9,23 @@ public class PongBall : MonoBehaviour {
 	public Text playerScoreUI;
 	public Text cpuScoreUI;
 	public Text gameMessageUI;
+	public Text gameOverUI;
+	public Camera cameraPoint;
+	private int playerScore = 0;
+	private int cpuScore = 0;
 	//
 
 	public float initialVelocity = 600;
 
 	private Rigidbody2D rb;
 	private Vector2 startPos;
-	private int playerScore = 0;
-	private int cpuScore = 0;
+	private Vector3 gameOverCameraPos;
+
 
 	void Awake () {
+		gameMessageUI.text = "";
+		gameOverCameraPos= new Vector3(10, 60, -10);
+
 		init ();
 	}
 	void Start () {
@@ -54,10 +61,20 @@ public class PongBall : MonoBehaviour {
 		displayWinner ();
 	}
 	private void displayWinner () {
-		if (cpuScore >= 10) {
+		Vector3 temp = cameraPoint.transform.position;
+		temp = new Vector3(10, 60, -10);
+		if (cpuScore >= 1) {
 			gameMessageUI.text = "You Lose!";
-		} else if (playerScore >= 10 ) {
+			Time.timeScale = 0.0f;
+			gameOverUI.text = "Game Over, You Suck!";
+			cameraPoint.transform.position = temp;
+
+		} else if (playerScore >= 1 ) {
 			gameMessageUI.text = "You Win!";
+			Time.timeScale = 0.0f;
+			gameOverUI.text = "Game Over, You Still Suck!";
+			cameraPoint.transform.position = temp;
+
 		}
 	}
 	private void init() {
