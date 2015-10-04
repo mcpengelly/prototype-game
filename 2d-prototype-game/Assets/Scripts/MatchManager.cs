@@ -5,17 +5,14 @@ using UnityEngine.UI;
 public class MatchManager : MonoBehaviour {
 
 	//Game manager should:
-	//track scores
-	//track ball position?? 
-	//affect timescale
 	//interface with all other objects to pause their state
 	//register puased/menu/playing messages
-	//wait few seconds before spawning new balls after round is over.
+	//wait few seconds before spawning new balls after round is over
 
-	public bool isPaused;
 	public static int playerScore = 0;
 	public static int cpuScore = 0;
 	public GUISkin layout;
+	private bool isPaused;
 
 	void Start() {
 
@@ -24,6 +21,13 @@ public class MatchManager : MonoBehaviour {
 	void Awake () {
 		isPaused = false;
 		DontDestroyOnLoad (this);
+	}
+
+	void OnTriggerExit2D(Collider2D collider) {
+		if (collider.CompareTag ("ball")) {
+			print ("Ball has exited playable zone. Reset ball.");
+			collider.gameObject.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
+		}
 	}
 
 	// Update is called once per frame
@@ -68,29 +72,3 @@ public class MatchManager : MonoBehaviour {
 	}
 	
 }
-// this method i'm trying to create a different type of gui.. for reset 
-	//void onGUI() {
-	//	GUI.skin = layout;
-	//	GUI.Label (new Rect (Screen.width / 2 - 150 - 12, 20, 100, 100), "" + playerScore);
-	//	GUI.Label (new Rect (Screen.width / 2 + 150 + 12, 20, 100, 100), "" + cpuScore);
-		
-	//	if (GUI.Button (new Rect (Screen.width / 2 - 60, 35, 120, 53), "RESET")) {
-	//		playerScore = 0;
-	//		cpuScore = 0;
-	//		ball.gameObject.SendMessage ("resetBall", .5f, SendMessageOptions.RequireReceiver);
-	//	}
-	//	
-	//	if (playerScore == 10) {
-	//		GUI.Label (new Rect (Screen.width / 2 - 150, 200, 2000, 1000), "YOU WIN!");
-	//	} else if (cpuScore == 10) {
-	//		GUI.Label (new Rect (Screen.width / 2 - 150, 200, 2000, 1000), "YOU LOSE!");
-	//		ball.gameObject.SendMessage ("hasWon", null, SendMessageOptions.RequireReceiver);
-	//	}
-	//}
-
-
-
-
-
-
-
