@@ -58,7 +58,6 @@ public class PongBall : MonoBehaviour {
 		updateUI ();
 		displayWinner ();
 	}
-<<<<<<< HEAD
 	private void displayWinner () {
 		Vector3 temp = cameraPoint.transform.position;
 		temp = new Vector3(10, 60, -10);
@@ -73,11 +72,9 @@ public class PongBall : MonoBehaviour {
 			Time.timeScale = 0.0f;
 			gameOverUI.text = "Game Over, You Still Suck!";
 			cameraPoint.transform.position = temp;
-
 		}
 	}
-=======
->>>>>>> development
+
 	private void init() {
 		rb = this.GetComponent<Rigidbody2D> ();
 		startPos = transform.position; // establish start position
