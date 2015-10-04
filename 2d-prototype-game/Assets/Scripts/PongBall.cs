@@ -26,10 +26,14 @@ public class PongBall : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider) {
 		checkWhoScored (collider);
 	}
+	void onCollisionEnter2D(Collider2D collider) {
+		//add relative force to ball on each collision with a paddle *not working atm*
+		//rb.AddRelativeForce (transform.up * 10);
+	}
 
-	//called from game manager, resets ball pos after scoring
+	//Method called when message recieved from another class
+	//improve by adding a countdown coroutine?
 	void resetBall() {
-		print("resetBall, Triggered by pointTrigger");
 		resetVelocity ();
 		transform.position = startPos;
 		sendRandomDirection();
@@ -46,13 +50,6 @@ public class PongBall : MonoBehaviour {
 		}
 		updateUI ();
 		displayWinner ();
-	}
-	private void displayWinner () {
-		if (cpuScore >= 10) {
-			gameMessageUI.text = "You Lose!";
-		} else if (playerScore >= 10 ) {
-			gameMessageUI.text = "You Win!";
-		}
 	}
 	private void init() {
 		rb = this.GetComponent<Rigidbody2D> ();
@@ -72,8 +69,17 @@ public class PongBall : MonoBehaviour {
 		v.x = 0;
 		rb.velocity = v;
 	}
+	
 	private void updateUI () {
 		playerScoreUI.text = "Your Score: " + playerScore.ToString ();
 		cpuScoreUI.text = "Enemy Score: " + cpuScore.ToString ();
+	}
+	
+	private void displayWinner () {
+		if (cpuScore >= 10) {
+			gameMessageUI.text = "You Lose!";
+		} else if (playerScore >= 10 ) {
+			gameMessageUI.text = "You Win!";
+		}
 	}
 }
