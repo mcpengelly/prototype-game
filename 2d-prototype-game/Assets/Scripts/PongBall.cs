@@ -70,7 +70,7 @@ public class PongBall : MonoBehaviour {
 		} else if (playerScore >= 1 ) {
 			gameMessageUI.text = "You Win!";
 			Time.timeScale = 0.0f;
-			gameOverUI.text = "Game Over, You Still Suck!";
+			gameOverUI.text = "You Win!";
 			cameraPoint.transform.position = temp;
 		}
 	}
@@ -97,13 +97,5 @@ public class PongBall : MonoBehaviour {
 	private void updateUI () {
 		playerScoreUI.text = "Your Score: " + playerScore.ToString ();
 		cpuScoreUI.text = "Enemy Score: " + cpuScore.ToString ();
-	}
-	
-	private void displayWinner () {
-		if (cpuScore >= 10) {
-			gameMessageUI.text = "You Lose!";
-		} else if (playerScore >= 10 ) {
-			gameMessageUI.text = "You Win!";
-		}
 	}
 }
