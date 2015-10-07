@@ -9,15 +9,9 @@ public class MatchManager : MonoBehaviour {
 	//register puased/menu/playing messages
 	//wait few seconds before spawning new balls after round is over
 
-	public static int playerScore = 0;
-	public static int cpuScore = 0;
 	public GUISkin layout;
 	private bool isPaused;
-
-	void Start() {
-
-	}
-
+	
 	void Awake () {
 		isPaused = false;
 		DontDestroyOnLoad (this);
@@ -61,14 +55,4 @@ public class MatchManager : MonoBehaviour {
 		isPaused = false;
 		Time.timeScale = 1.0f;
 	}
-	
-	// called from PointTrigger script on each the net colliders, increments score accordingly
-	public static void Score(string netID) {
-		if (netID == "P_CPUnet") {
-			playerScore++;
-		} else {
-			cpuScore++;;
-		}
-	}
-	
 }
