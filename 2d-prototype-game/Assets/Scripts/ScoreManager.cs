@@ -46,7 +46,6 @@ public class ScoreManager : MonoBehaviour {
 	}
 	//method called by recieving a message from: PointTrigger.cs
 	void checkWhoScored(string message) {
-		print (message);
 		if(message == "PlayerGoal"){
 			playerScore++;
 		} else if (message == "CPUGoal") {

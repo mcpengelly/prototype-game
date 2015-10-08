@@ -19,7 +19,7 @@ public class MatchManager : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D collider) {
 		if (collider.CompareTag ("ball")) {
-			print ("Ball has exited playable zone. Reset ball.");
+			print ("Ball has exited playable zone. Resetting ball.");
 			collider.gameObject.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
 		}
 	}

@@ -42,4 +42,17 @@ public class PongBall : MonoBehaviour {
 		v.x = 0;
 		rb.velocity = v;
 	}
+
+	//debug control
+	void Update() {
+		//stop ball with G
+		if (Input.GetKeyDown (KeyCode.G)) {
+			resetVelocity();
+		}
+		//reset ball with H
+		if (Input.GetKeyDown (KeyCode.H)) {
+			resetBall();
+		}
+
+	}
 }

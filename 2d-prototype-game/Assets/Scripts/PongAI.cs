@@ -31,7 +31,7 @@ public class PongAI : MonoBehaviour {
 	public void SetState(State newState) { 
 		previousState = currentState;
 		currentState = newState;
-		print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
+		//print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
 	}
 	
 	void Awake() {
@@ -76,17 +76,19 @@ public class PongAI : MonoBehaviour {
 					break;
 
 					case State.Wandering:
-					int randomYDist = Random.Range (-5, 5);
+					float randomYDist = Random.Range (-10, 10);
 					float tryDistance = currentPosition.y + randomYDist;
 					currentPosition = transform.position;
 					//add randomyYDistance to current position to check if it would be passed the boundry.
 					//if it would set the boundry too high or low, flip the sign of randomYDist
 					if(tryDistance < 10 && tryDistance > -10){
+						print("tryDistance1: " + tryDistance);
 						targetPos = new Vector2(currentPosition.x, currentPosition.y + randomYDist);
-						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 0.5f));
+						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 1.5f));
 					} else { // TODO: make the paddle wander back if the tryDistance is too high or low.
+						print("tryDistance2: " + tryDistance);
 						targetPos = new Vector2(currentPosition.x, currentPosition.y + (randomYDist * -1.0f));
-						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 0.5f));
+						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 1.5f));
 					}
 					break;
 
