@@ -10,7 +10,7 @@ public class MatchManager : MonoBehaviour {
 	//wait few seconds before spawning new balls after round is over
 
 	public GUISkin layout;
-	private bool isPaused;
+	private static bool isPaused;
 	
 	void Awake () {
 		isPaused = false;
@@ -39,7 +39,7 @@ public class MatchManager : MonoBehaviour {
 
 	}
 
-	public void TogglePause () {
+	public static void TogglePause () {
 		if (isPaused) {
 			UnPauseGame ();
 		} else {
@@ -47,11 +47,11 @@ public class MatchManager : MonoBehaviour {
 		}
 	}
 
-	private void PauseGame () {
+	private static void PauseGame () {
 		isPaused = true;
 		Time.timeScale = 0.0f;
 	}
-	private void UnPauseGame () {
+	private static void UnPauseGame () {
 		isPaused = false;
 		Time.timeScale = 1.0f;
 	}

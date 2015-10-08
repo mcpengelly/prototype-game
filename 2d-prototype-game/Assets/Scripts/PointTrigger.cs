@@ -15,10 +15,13 @@ public class PointTrigger : MonoBehaviour {
 		if (collider.gameObject.CompareTag("ball")) {
 			collider.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
 
-			if (collider.gameObject.CompareTag ("CPU net")) {
-				scoreManager.SendMessage("incrementPlayerScore", SendMessageOptions.RequireReceiver);
+			//check which net was scored on. by checking this gameobject
+			if (this.gameObject.CompareTag("CPU net")) {
+				scoreManager.SendMessage("checkWhoScored", "PlayerGoal", SendMessageOptions.RequireReceiver);
+			} else if (this.gameObject.CompareTag("Player net")) {
+				scoreManager.SendMessage("checkWhoScored", "CPUGoal", SendMessageOptions.RequireReceiver);
 			} else {
-				scoreManager.SendMessage("incrementCpuScore", SendMessageOptions.RequireReceiver);
+
 			}
 		}
 	}
