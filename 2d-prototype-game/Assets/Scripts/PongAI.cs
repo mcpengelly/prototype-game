@@ -23,7 +23,8 @@ public class PongAI : MonoBehaviour {
 	private State previousState;
 	
 	private Vector2 targetPos;
-	private Vector2 currentPosition;
+	private Vector2 currentPos;
+	private Vector2 startPos;
 	//getters for member variables
 	public State getState() { return currentState; }
 	public State getPrevState() { return previousState; }
@@ -35,6 +36,7 @@ public class PongAI : MonoBehaviour {
 	}
 	
 	void Awake() {
+		startPos = transform.position;
 		SetState(State.Wandering);
 	}
 	void Start() {
@@ -76,21 +78,19 @@ public class PongAI : MonoBehaviour {
 					break;
 
 					case State.Wandering:
-					float randomYDist = Random.Range (-10, 10);
-					float tryDistance = currentPosition.y + randomYDist;
-					currentPosition = transform.position;
+					currentPos = transform.position;
+					float randomYDist = Random.Range (-5.0f, 5.0f);
+					float tryDistance = transform.position.y + randomYDist;
 					//add randomyYDistance to current position to check if it would be passed the boundry.
 					//if it would set the boundry too high or low, flip the sign of randomYDist
-					if(tryDistance > 10){
-						print("tryDistance1: " + tryDistance + "currentPosition y:" + currentPosition.y);
-						targetPos = new Vector2(currentPosition.x, currentPosition.y + randomYDist);
-						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 1.5f * speed));
-					} else if (tryDistance < -10){ // TODO: make the paddle wander back if the tryDistance is too high or low.
-						print("tryDistance2: " + tryDistance + "currentPosition y:" + currentPosition.y);
-						targetPos = new Vector2(currentPosition.x, currentPosition.y + (randomYDist * -1.0f));
-						yield return StartCoroutine(MoveObject(currentPosition, targetPos, 1.5f * speed));
-					} else {
-						print("something weird going on");
+					if(tryDistance <= 10.0f && tryDistance >= -10.0f){ // 
+						print("tryDistance1: " + tryDistance + "currentPosition y: " + currentPos.y);
+						targetPos = new Vector2(currentPos.x, currentPos.y + randomYDist);
+						yield return StartCoroutine(MoveObject(currentPos, targetPos, 0.5f));
+					} else { // TODO: make the paddle wander back if the tryDistance is too high or low.
+						print("tryDistance2: " + tryDistance + "currentPosition y: " + currentPos.y);
+						//targetPos = new Vector2(currentPosition.x, currentPosition.y + randomYDist);
+						yield return StartCoroutine(MoveObject(currentPos, startPos, 1.0f));
 					}
 					break;
 
@@ -103,8 +103,4 @@ public class PongAI : MonoBehaviour {
 			yield return 0;
 		}
 	}
-	private void wanderOneTime () {
-
-	}
-
 }

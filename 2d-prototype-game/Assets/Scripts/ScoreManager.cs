@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour {
 		init ();
 	}
 	void init(){
-		gameOverCameraPos = new Vector3 (10, 60, -10);
+		gameOverCameraPos = new Vector3 (mainCam.transform.position.x, 60, mainCam.transform.position.z);
 		playerScore = 0;
 		cpuScore = 0;
 		gameMessageUI.text = "";
