@@ -83,7 +83,7 @@ public class PongAI : MonoBehaviour {
 					float tryDistance = transform.position.y + randomYDist;
 					//add randomyYDistance to current position to check if it would be passed the boundry.
 					//if it would set the boundry too high or low, flip the sign of randomYDist
-					if(tryDistance <= 10.0f && tryDistance >= -10.0f){ // 
+					if(tryDistance <= 16.0f && tryDistance >= -10.0f){ // 
 						print("tryDistance1: " + tryDistance + "currentPosition y: " + currentPos.y);
 						targetPos = new Vector2(currentPos.x, currentPos.y + randomYDist);
 						yield return StartCoroutine(MoveObject(currentPos, targetPos, 0.5f));
