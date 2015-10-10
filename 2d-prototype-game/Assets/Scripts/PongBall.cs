@@ -33,7 +33,7 @@ public class PongBall : MonoBehaviour {
 		StartCoroutine ( checkStateInterval());
 		init ();
 		SetState (State.InPlay);
-		sendRandomDirection ();
+
 	}
 
 	//debug control
@@ -60,12 +60,15 @@ public class PongBall : MonoBehaviour {
 			case State.Init:
 				print ("init state");
 				yield return new WaitForSeconds (3.0f);
+				sendRandomDirection ();
 				break;
 			case State.InPlay:
 				print ("ball in play");
 				break;
 			case State.OutOfPlay: 
 				print ("ball NOT in play");
+				yield return new WaitForSeconds (3.0f);
+				sendRandomDirection();
 				break;
 				
 			}
@@ -78,7 +81,6 @@ public class PongBall : MonoBehaviour {
 	void resetBall() {
 		resetVelocity ();
 		transform.position = startPos;
-		sendRandomDirection();
 	}
 
 	private void init() {
