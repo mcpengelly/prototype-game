@@ -4,11 +4,8 @@ using System.Collections;
 
 public class PongAI : MonoBehaviour {
 
-	//state machine
-	//create a circle collider around the cpu paddle that detects if the ball is within "range"
-	//make the paddle behave a particular way when it is in range or out of range.
-	//allow for this class to be extensible, in this case. able to incorperate more states. ie: boosting or something.
-	
+	//State Machine:
+	//checks as seperate behaviour for when the ball is within range or out of range.
 	public enum State
 	{
 		Init,
@@ -39,6 +36,7 @@ public class PongAI : MonoBehaviour {
 		startPos = transform.position;
 		SetState(State.Wandering);
 	}
+
 	void Start() {
 		StartCoroutine ("aiUpdate");
 	}
@@ -48,6 +46,7 @@ public class PongAI : MonoBehaviour {
 			SetState(State.Blocking);
 		}
 	}
+
 	void OnTriggerExit2D (Collider2D other) {
 		if(other.CompareTag("ball")) {
 			SetState(State.Wandering);
@@ -66,7 +65,7 @@ public class PongAI : MonoBehaviour {
 	}
 
 	IEnumerator aiUpdate() {
-		//TODO:run repeatedly while game state != gameover
+		//while the game isnt paused or gameover update ai
 		while (true) {
 			pongBall = GameObject.FindGameObjectWithTag ("ball");
 

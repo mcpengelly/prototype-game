@@ -27,8 +27,7 @@ public class PongBall : MonoBehaviour {
 		currentState = newState;
 		//print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
 	}
-
-
+	
 	void Start () {
 		StartCoroutine ( checkStateInterval());
 		init ();
@@ -36,7 +35,6 @@ public class PongBall : MonoBehaviour {
 
 	}
 
-	//debug control
 	void Update() {
 		// check if ball is within the two nets... if past change state
 		if (transform.position.x <= -21 || transform.position.x >= 21) {
@@ -44,6 +42,7 @@ public class PongBall : MonoBehaviour {
 		} else {
 			SetState (State.InPlay);
 		}
+		//DEBUG CONTROLS
 		//stop ball with G
 		if (Input.GetKeyDown (KeyCode.G)) {
 			resetVelocity();
@@ -53,20 +52,17 @@ public class PongBall : MonoBehaviour {
 			resetBall();
 		}	
 	}
-	//displays the state, then waits for 3 seconds.
+
 	IEnumerator checkStateInterval() {
 		while (true) {
 			switch (getState ()) {
 			case State.Init:
-				print ("init state");
 				yield return new WaitForSeconds (3.0f);
 				sendRandomDirection ();
 				break;
 			case State.InPlay:
-				print ("ball in play");
 				break;
 			case State.OutOfPlay: 
-				print ("ball NOT in play");
 				yield return new WaitForSeconds (3.0f);
 				sendRandomDirection();
 				break;
@@ -77,7 +73,6 @@ public class PongBall : MonoBehaviour {
 	}
 
 	//Method called when message recieved from another class
-	//improve by adding a countdown coroutine?
 	void resetBall() {
 		resetVelocity ();
 		transform.position = startPos;

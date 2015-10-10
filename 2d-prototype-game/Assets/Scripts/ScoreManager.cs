@@ -3,12 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
-	//ScoreManager tracks score and displays/updates UI
 
 	public Text playerScoreUI;
 	public Text cpuScoreUI;
 	public Text gameMessageUI;
-
+	
 	public static int playerScore;
 	public static int cpuScore;
 	
@@ -55,8 +54,6 @@ public class ScoreManager : MonoBehaviour {
 		checkWinner ();
 	}
 
-
-	// called from PointT
 	//static utility methods for accessing scores
 	public static int getPlayerScore() {
 		return playerScore;
