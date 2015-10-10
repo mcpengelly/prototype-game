@@ -84,12 +84,9 @@ public class PongAI : MonoBehaviour {
 					//add randomyYDistance to current position to check if it would be passed the boundry.
 					//if it would set the boundry too high or low, flip the sign of randomYDist
 					if(tryDistance <= 16.0f && tryDistance >= -10.0f){ // 
-						print("tryDistance1: " + tryDistance + "currentPosition y: " + currentPos.y);
 						targetPos = new Vector2(currentPos.x, currentPos.y + randomYDist);
 						yield return StartCoroutine(MoveObject(currentPos, targetPos, 0.5f));
-					} else { // TODO: make the paddle wander back if the tryDistance is too high or low.
-						print("tryDistance2: " + tryDistance + "currentPosition y: " + currentPos.y);
-						//targetPos = new Vector2(currentPosition.x, currentPosition.y + randomYDist);
+					} else { 
 						yield return StartCoroutine(MoveObject(currentPos, startPos, 1.0f));
 					}
 					break;

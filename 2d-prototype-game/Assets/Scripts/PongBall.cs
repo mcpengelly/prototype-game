@@ -13,7 +13,7 @@ public class PongBall : MonoBehaviour {
 	{
 		Init,
 		InPlay,
-		OutPlay
+		OutOfPlay
 	}
 
 	private State currentState = State.Init;
@@ -30,7 +30,7 @@ public class PongBall : MonoBehaviour {
 
 
 	void Start () {
-		StartCoroutine (Wait ());
+		StartCoroutine ( checkStateInterval());
 		init ();
 		SetState (State.InPlay);
 		sendRandomDirection ();
@@ -38,13 +38,12 @@ public class PongBall : MonoBehaviour {
 
 	//debug control
 	void Update() {
-
 		// check if ball is within the two nets... if past change state
-		if (transform.position.x <= -18 || transform.position.x >= 18) {
-			print ("in checker");
-			SetState (State.OutPlay);
+		if (transform.position.x <= -21 || transform.position.x >= 21) {
+			SetState (State.OutOfPlay);
+		} else {
+			SetState (State.InPlay);
 		}
-
 		//stop ball with G
 		if (Input.GetKeyDown (KeyCode.G)) {
 			resetVelocity();
@@ -52,10 +51,27 @@ public class PongBall : MonoBehaviour {
 		//reset ball with H
 		if (Input.GetKeyDown (KeyCode.H)) {
 			resetBall();
-		}
-		
+		}	
 	}
-
+	//displays the state, then waits for 3 seconds.
+	IEnumerator checkStateInterval() {
+		while (true) {
+			switch (getState ()) {
+			case State.Init:
+				print ("init state");
+				yield return new WaitForSeconds (3.0f);
+				break;
+			case State.InPlay:
+				print ("ball in play");
+				break;
+			case State.OutOfPlay: 
+				print ("ball NOT in play");
+				break;
+				
+			}
+			yield return 0;
+		}
+	}
 
 	//Method called when message recieved from another class
 	//improve by adding a countdown coroutine?
@@ -69,6 +85,14 @@ public class PongBall : MonoBehaviour {
 		rb = this.GetComponent<Rigidbody2D> ();
 		startPos = transform.position; // establish start position
 	}
+	
+	private void resetVelocity() {
+		Vector2 v = rb.velocity;
+		v.y = 0;
+		v.x = 0;
+		rb.velocity = v;
+	}
+
 	private void sendRandomDirection () {
 		float random = Mathf.Floor(Random.Range (0, 2));
 		if (random < 1) {
@@ -76,31 +100,5 @@ public class PongBall : MonoBehaviour {
 		} else {
 			rb.AddForce(new Vector2(-initialVelocity, -initialVelocity));
 		}
-
-
-	}
-
-	private void resetVelocity() {
-
-		Vector2 v = rb.velocity;
-		v.y = 0;
-		v.x = 0;
-		rb.velocity = v;
-	}
-
-	IEnumerator Wait() {
-		print (getState ());
-		switch (getState ()) {
-		case State.Init: 
-				yield return new WaitForSeconds (3.0f);
-				break;
-		case State.InPlay: break;
-		case State.OutPlay: 
-				print ("in outplay state");
-				yield return new WaitForSeconds (3.0f);
-				break;
-
-			}
-		yield return 0;
-	}
+	}	
 }

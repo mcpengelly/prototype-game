@@ -38,8 +38,6 @@ public class PaddleController : MonoBehaviour {
 		//move the paddle
 		rb2D.MovePosition (targetPosition);
 		speedBoost (targetPosition);
-
-		
 	}
 
 	// just messing around.. trying to add a small speed boost 
