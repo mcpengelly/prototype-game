@@ -18,8 +18,7 @@ public class MatchManager : MonoBehaviour {
 			collider.gameObject.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
 		}
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			TogglePause ();
@@ -46,10 +45,12 @@ public class MatchManager : MonoBehaviour {
 		isPaused = true;
 		Time.timeScale = 0.0f;
 	}
+
 	private static void UnPauseGame () {
 		isPaused = false;
 		Time.timeScale = 1.0f;
 	}
+
 	public static bool getPausedStatus() {
 		return isPaused;
 	}

@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class PongAI : MonoBehaviour {
-
 	//State Machine:
 	//checks as seperate behaviour for when the ball is within range or out of range.
 	public enum State

@@ -2,24 +2,22 @@
 using System.Collections;
 
 public class PaddleController : MonoBehaviour {
-
-	//player controlled paddle
-
+	//Player controlled PaddleController
 	public Rigidbody2D rb2D;
 	public float paddleSpeed = 1.0f;
 	public float maxHeight;
-	public float minHeight;
-	private Vector2 startPos;
 	public Transform ballPos;
+	public float minHeight;
+
+	private Vector2 startPos;
 	Vector2 rawPosition;
 
 	void Awake () {
-		//get handle on rigidbody2d of this object so it can be moved in update
+		//get handle on rigidbody2d of this obj
 		rb2D = GetComponent<Rigidbody2D>();
 	}
 	void Start () {
 		startPos = new Vector2(transform.position.x, transform.position.y);
-
 	}
 
 	void Update () {
@@ -35,12 +33,10 @@ public class PaddleController : MonoBehaviour {
 
 		}
 
-		//move the paddle
 		rb2D.MovePosition (targetPosition);
 		speedBoost (targetPosition);
 	}
 
-	// just messing around.. trying to add a small speed boost 
 	//-- used same strategy as above but using same button for both directions.. didn't work
 	void  speedBoost(Vector2 targetPosition) {
 		if (Input.GetKey (KeyCode.Space) && transform.position.y <= startPos.y + maxHeight) {

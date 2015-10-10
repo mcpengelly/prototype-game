@@ -20,8 +20,6 @@ public class PointTrigger : MonoBehaviour {
 				scoreManager.SendMessage("checkWhoScored", "PlayerGoal", SendMessageOptions.RequireReceiver);
 			} else if (this.gameObject.CompareTag("Player net")) {
 				scoreManager.SendMessage("checkWhoScored", "CPUGoal", SendMessageOptions.RequireReceiver);
-			} else {
-
 			}
 		}
 	}
