@@ -9,12 +9,53 @@ public class PongBall : MonoBehaviour {
 	private Rigidbody2D rb;
 	private Vector2 startPos;
 
-	void Awake () {
-		init ();
+	public enum State
+	{
+		Init,
+		InPlay,
+		OutPlay
 	}
+
+	private State currentState = State.Init;
+	private State previousState;
+
+	public State getState() { return currentState; }
+	public State getPrevState() { return previousState; }
+	
+	public void SetState(State newState) { 
+		previousState = currentState;
+		currentState = newState;
+		//print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
+	}
+
+
 	void Start () {
+		StartCoroutine (Wait ());
+		init ();
+		SetState (State.InPlay);
 		sendRandomDirection ();
 	}
+
+	//debug control
+	void Update() {
+
+		// check if ball is within the two nets... if past change state
+		if (transform.position.x <= -18 || transform.position.x >= 18) {
+			print ("in checker");
+			SetState (State.OutPlay);
+		}
+
+		//stop ball with G
+		if (Input.GetKeyDown (KeyCode.G)) {
+			resetVelocity();
+		}
+		//reset ball with H
+		if (Input.GetKeyDown (KeyCode.H)) {
+			resetBall();
+		}
+		
+	}
+
 
 	//Method called when message recieved from another class
 	//improve by adding a countdown coroutine?
@@ -35,24 +76,31 @@ public class PongBall : MonoBehaviour {
 		} else {
 			rb.AddForce(new Vector2(-initialVelocity, -initialVelocity));
 		}
+
+
 	}
+
 	private void resetVelocity() {
+
 		Vector2 v = rb.velocity;
 		v.y = 0;
 		v.x = 0;
 		rb.velocity = v;
 	}
 
-	//debug control
-	void Update() {
-		//stop ball with G
-		if (Input.GetKeyDown (KeyCode.G)) {
-			resetVelocity();
-		}
-		//reset ball with H
-		if (Input.GetKeyDown (KeyCode.H)) {
-			resetBall();
-		}
+	IEnumerator Wait() {
+		print (getState ());
+		switch (getState ()) {
+		case State.Init: 
+				yield return new WaitForSeconds (3.0f);
+				break;
+		case State.InPlay: break;
+		case State.OutPlay: 
+				print ("in outplay state");
+				yield return new WaitForSeconds (3.0f);
+				break;
 
+			}
+		yield return 0;
 	}
 }
