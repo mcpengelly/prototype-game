@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+//placed on the goal/nets to handle scoring
 public class PointTrigger : MonoBehaviour {
-
 	GameObject scoreManager;
 
 	void Awake() {

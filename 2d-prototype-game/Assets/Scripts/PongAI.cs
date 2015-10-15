@@ -1,14 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class PongAI : MonoBehaviour {
-
-	//state machine
-	//create a circle collider around the cpu paddle that detects if the ball is within "range"
-	//make the paddle behave a particular way when it is in range or out of range.
-	//allow for this class to be extensible, in this case. able to incorperate more states. ie: boosting or something.
-	
 	public enum State
 	{
 		Init,
@@ -25,6 +18,7 @@ public class PongAI : MonoBehaviour {
 	private Vector2 targetPos;
 	private Vector2 currentPos;
 	private Vector2 startPos;
+
 	//getters for member variables
 	public State getState() { return currentState; }
 	public State getPrevState() { return previousState; }

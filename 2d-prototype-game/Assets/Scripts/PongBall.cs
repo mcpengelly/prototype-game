@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PongBall : MonoBehaviour {
-
 	public float initialVelocity = 600;
 
 	private Rigidbody2D rb;
@@ -27,28 +26,23 @@ public class PongBall : MonoBehaviour {
 		currentState = newState;
 		//print("Exit: " + previousState.ToString() + " State, Enter: " + currentState.ToString() + " State.");
 	}
-
-
+	
 	void Start () {
 		StartCoroutine ( checkStateInterval());
 		init ();
 		SetState (State.InPlay);
-
 	}
 
-	//debug control
+	//debug controls
 	void Update() {
-		// check if ball is within the two nets... if past change state
 		if (transform.position.x <= -21 || transform.position.x >= 21) {
 			SetState (State.OutOfPlay);
 		} else {
 			SetState (State.InPlay);
 		}
-		//stop ball with G
 		if (Input.GetKeyDown (KeyCode.G)) {
 			resetVelocity();
 		}
-		//reset ball with H
 		if (Input.GetKeyDown (KeyCode.H)) {
 			resetBall();
 		}	
@@ -76,8 +70,6 @@ public class PongBall : MonoBehaviour {
 		}
 	}
 
-	//Method called when message recieved from another class
-	//improve by adding a countdown coroutine?
 	void resetBall() {
 		resetVelocity ();
 		transform.position = startPos;

@@ -2,13 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
+//Manages game pausing, resetting and quitting
 public class MatchManager : MonoBehaviour {
-	
-	//Game manager should:
-	//interface with all other objects to pause their state
-	//register puased/menu/playing messages
-	//wait few seconds before spawning new balls after round is over
-	
 	public GUISkin layout;
 	private static bool isPaused;
 	
@@ -18,13 +13,12 @@ public class MatchManager : MonoBehaviour {
 	}
 	
 	void OnTriggerExit2D(Collider2D collider) {
-//		if (collider.CompareTag ("ball")) {
-//			print ("Ball has exited playable zone. Resetting ball.");
-//			collider.gameObject.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
-//		}
+		if (collider.CompareTag ("ball")) {
+			print ("Ball has exited playable zone. Resetting ball.");
+			collider.gameObject.SendMessage("resetBall", 0.5f, SendMessageOptions.RequireReceiver);
+		}
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			TogglePause ();
@@ -51,6 +45,7 @@ public class MatchManager : MonoBehaviour {
 		isPaused = true;
 		Time.timeScale = 0.0f;
 	}
+
 	private static void UnPauseGame () {
 		isPaused = false;
 		Time.timeScale = 1.0f;

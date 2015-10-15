@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//main controls for user
 public class PaddleController : MonoBehaviour {
-
-	//player controlled paddle
 
 	public Rigidbody2D rb2D;
 	public float paddleSpeed = 1.0f;
@@ -14,12 +13,10 @@ public class PaddleController : MonoBehaviour {
 	Vector2 rawPosition;
 
 	void Awake () {
-		//get handle on rigidbody2d of this object so it can be moved in update
 		rb2D = GetComponent<Rigidbody2D>();
 	}
 	void Start () {
 		startPos = new Vector2(transform.position.x, transform.position.y);
-
 	}
 
 	void Update () {
@@ -34,8 +31,6 @@ public class PaddleController : MonoBehaviour {
 			targetPosition = new Vector2 (rawPosition.x, rawPosition.y - paddleSpeed);
 
 		}
-
-		//move the paddle
 		rb2D.MovePosition (targetPosition);
 		speedBoost (targetPosition);
 	}
@@ -51,6 +46,6 @@ public class PaddleController : MonoBehaviour {
 			rb2D.AddRelativeForce (rawPosition, ForceMode2D.Impulse);
 			targetPosition = new Vector2 (transform.position.x, transform.position.y - paddleSpeed * 2);
 		}
-			rb2D.MovePosition (targetPosition);
+		rb2D.MovePosition (targetPosition);
 	}
 }
