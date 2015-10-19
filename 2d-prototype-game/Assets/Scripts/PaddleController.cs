@@ -29,22 +29,6 @@ public class PaddleController : MonoBehaviour {
 
 		} else if (Input.GetKey (KeyCode.S) && transform.position.y >= startPos.y + minHeight) {
 			targetPosition = new Vector2 (rawPosition.x, rawPosition.y - paddleSpeed);
-
-		}
-		rb2D.MovePosition (targetPosition);
-		speedBoost (targetPosition);
-	}
-
-	// just messing around.. trying to add a small speed boost 
-	//-- used same strategy as above but using same button for both directions.. didn't work
-	void  speedBoost(Vector2 targetPosition) {
-		if (Input.GetKey (KeyCode.Space) && transform.position.y <= startPos.y + maxHeight) {
-			rb2D.AddRelativeForce (rawPosition, ForceMode2D.Impulse);
-			targetPosition = new Vector2 (transform.position.x, transform.position.y + paddleSpeed * 2);
-		} 
-		else if (Input.GetKey (KeyCode.Space) && transform.position.y >= startPos.y + minHeight) {
-			rb2D.AddRelativeForce (rawPosition, ForceMode2D.Impulse);
-			targetPosition = new Vector2 (transform.position.x, transform.position.y - paddleSpeed * 2);
 		}
 		rb2D.MovePosition (targetPosition);
 	}

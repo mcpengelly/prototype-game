@@ -60,7 +60,6 @@ public class PongAI : MonoBehaviour {
 	}
 
 	IEnumerator aiUpdate() {
-		//TODO:run repeatedly while game state != gameover
 		while (true) {
 			pongBall = GameObject.FindGameObjectWithTag ("ball");
 

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 //Manages game pausing, resetting and quitting
 public class MatchManager : MonoBehaviour {
-	public GUISkin layout;
 	private static bool isPaused;
 	
 	void Awake () {
